@@ -7,6 +7,7 @@ import 'dart:convert';
 class HTTPService {
   Future<Map<String, dynamic>> postRequest(String url, Map<String, dynamic> data) async {
     Conf conf = await getIt<ConfService>().getConf();
+
     var requestUrl = Uri.parse(
       'http://${conf.ip}:${conf.porta}/$url',
     );
@@ -30,28 +31,27 @@ class HTTPService {
     return jsonResponse;
   }
 
-  Future<Map<String, dynamic>> getRequest(String url, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> getRequest(String url, Map<String, dynamic> parameters) async {
     Conf conf = await getIt<ConfService>().getConf();
 
     var requestUrl = Uri.parse(
       'http://${conf.ip}:${conf.porta}/$url',
     );
 
-    var request = http.Request('GET', requestUrl)
-      ..headers.addAll({
+    requestUrl = requestUrl.replace(queryParameters: parameters);
+
+    var response = await http.get(
+      requestUrl,
+      headers: {
         "Content-Type": "application/json",
         "token": conf.token,
-      });
-
-    request.body = jsonEncode(data);
-    http.StreamedResponse response = await request.send();
-
-    var resposta = await http.Response.fromStream(response);
+      },
+    );
 
     Map<String, dynamic> jsonResponse = <String, dynamic>{};
 
-    jsonResponse['body'] = json.decode(resposta.body);
-    jsonResponse['status'] = resposta.statusCode;
+    jsonResponse['body'] = json.decode(response.body);
+    jsonResponse['status'] = response.statusCode;
 
     return jsonResponse;
   }

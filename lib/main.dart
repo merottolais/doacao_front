@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'rotas',
       initialRoute: '/',
       routes: {
         '/': (context) => Material(child: Scaffold(body: ConfPage())),
-        '/home': (context) => Material(child: Scaffold(body: const HomePage())),
+        '/home': (context) => Material(child: Scaffold(body: HomePage())),
         '/registrar': (context) => Material(child: Scaffold(body: const RegistrarPage())),
         '/login': (context) => Material(child: Scaffold(body: const LoginPage())),
       },

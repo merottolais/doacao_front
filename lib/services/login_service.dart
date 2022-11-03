@@ -11,4 +11,14 @@ class LoginService {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> logout(String usuarioID, String token) async {
+    Map<String, dynamic> data = {
+      'id': usuarioID,
+      'token': token,
+    };
+    Map<String, dynamic> response = await getIt<HTTPService>().getRequest('logon', data);
+
+    return response;
+  }
 }
