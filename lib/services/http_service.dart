@@ -1,9 +1,12 @@
 import 'package:doacao_front/models/conf_model.dart';
+import 'package:doacao_front/service_reg.dart';
+import 'package:doacao_front/services/conf_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HTTPService {
-  Future<Map<String, dynamic>> postRequest(Conf conf, String url, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> postRequest(String url, Map<String, dynamic> data) async {
+    Conf conf = await getIt<ConfService>().getConf();
     var requestUrl = Uri.parse(
       'http://${conf.ip}:${conf.porta}/$url',
     );
@@ -22,12 +25,14 @@ class HTTPService {
     Map<String, dynamic> jsonResponse = <String, dynamic>{};
 
     jsonResponse['body'] = json.decode(response.body);
-    jsonResponse['statusCode'] = response.statusCode;
+    jsonResponse['status'] = response.statusCode;
 
     return jsonResponse;
   }
 
-  Future<Map<String, dynamic>> getRequest(Conf conf, String url, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> getRequest(String url, Map<String, dynamic> data) async {
+    Conf conf = await getIt<ConfService>().getConf();
+
     var requestUrl = Uri.parse(
       'http://${conf.ip}:${conf.porta}/$url',
     );
@@ -46,7 +51,7 @@ class HTTPService {
     Map<String, dynamic> jsonResponse = <String, dynamic>{};
 
     jsonResponse['body'] = json.decode(resposta.body);
-    jsonResponse['statusCode'] = resposta.statusCode;
+    jsonResponse['status'] = resposta.statusCode;
 
     return jsonResponse;
   }
