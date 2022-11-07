@@ -14,51 +14,99 @@ class _LoginPageState extends State<LoginPage> {
   final _senha = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Form(
-        key: _form,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _cpf,
-              decoration: InputDecoration(
-                labelText: 'CPF',
+    return Center(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: SizedBox(
+          width: 500,
+          height: 400,
+          child: Padding(
+            padding: const EdgeInsets.all(60),
+            child: Form(
+              key: _form,
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _cpf,
+                    decoration: InputDecoration(
+                      labelText: 'CPF',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe o CPF';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _senha,
+                    decoration: InputDecoration(
+                      labelText: 'Senha',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe a senha';
+                      }
+                      return null;
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  if (_form.currentState!.validate()) {
+                                    await login(_cpf.text, _senha.text, context);
+                                    setState(() {});
+                                  }
+                                },
+                                child: Text('Login'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/registrar');
+                              },
+                              child: Text('Registrar'),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                Navigator.pushNamed(context, '/recuperaSenha');
+                              },
+                              child: Text('Recuperar senha'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe o CPF';
-                }
-                return null;
-              },
             ),
-            TextFormField(
-              controller: _senha,
-              decoration: InputDecoration(
-                labelText: 'Senha',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe a senha';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_form.currentState!.validate()) {
-                  await login(_cpf.text, _senha.text, context);
-                  setState(() {});
-                }
-              },
-              child: Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/registrar');
-              },
-              child: Text('Registrar'),
-            ),
-          ],
+          ),
         ),
       ),
     );

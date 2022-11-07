@@ -21,4 +21,13 @@ class LoginService {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> recuperaSenha(String cpf) async {
+    Map<String, dynamic> data = {
+      'cpf': cpf,
+    };
+    Map<String, dynamic> response = await getIt<HTTPService>().getRequest('recupera_senha', data);
+
+    return response;
+  }
 }

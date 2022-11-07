@@ -1,6 +1,7 @@
 import 'package:doacao_front/pages/conf_page.dart';
 import 'package:doacao_front/pages/home_page.dart';
 import 'package:doacao_front/pages/login_page.dart';
+import 'package:doacao_front/pages/recuperar_page.dart';
 import 'package:doacao_front/pages/registrar_page.dart';
 import 'package:doacao_front/service_reg.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       debugShowCheckedModeBanner: false,
       title: 'rotas',
       initialRoute: '/',
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => Material(child: Scaffold(body: HomePage())),
         '/registrar': (context) => Material(child: Scaffold(body: const RegistrarPage())),
         '/login': (context) => Material(child: Scaffold(body: const LoginPage())),
+        '/recupera': (context) => Material(child: Scaffold(body: const RecuperarSenhaPage())),
       },
     );
   }

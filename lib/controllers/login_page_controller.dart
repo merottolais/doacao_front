@@ -22,3 +22,21 @@ login(String cpf, String senha, BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
+
+recuperaSenha(String cpf, BuildContext context) async {
+  var response = await getIt<LoginService>().recuperaSenha(cpf);
+
+  if (response['status'] == 200) {
+    return response['body']['mensagem'];
+  } else {
+    var mensagem = response['body']['mensagem'] ?? 'Erro desconhecido';
+
+    var snackBar = SnackBar(
+      content: Text(mensagem),
+      backgroundColor: Colors.red,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  return "";
+}
