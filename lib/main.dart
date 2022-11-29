@@ -25,9 +25,18 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Material(child: Scaffold(body: ConfPage())),
         '/home': (context) => Material(child: Scaffold(body: HomePage())),
-        '/registrar': (context) => Material(child: Scaffold(body: const RegistrarPage())),
+        '/registrar': (context) => Material(
+                child: Scaffold(
+                    body: RegistrarPage(
+              update: false,
+            ))),
+        '/atualizar': (context) => Material(
+                child: Scaffold(
+                    body: RegistrarPage(
+              update: true,
+            ))),
         '/login': (context) => Material(child: Scaffold(body: const LoginPage())),
-        '/recupera': (context) => Material(child: Scaffold(body: const RecuperarSenhaPage())),
+        '/recuperaSenha': (context) => Material(child: Scaffold(body: const RecuperarSenhaPage())),
       },
     );
   }

@@ -25,8 +25,13 @@ class HTTPService {
 
     Map<String, dynamic> jsonResponse = <String, dynamic>{};
 
-    jsonResponse['body'] = json.decode(response.body);
     jsonResponse['status'] = response.statusCode;
+
+    if (response.body.isEmpty) {
+      jsonResponse['body'] = <String, dynamic>{};
+    } else {
+      jsonResponse['body'] = json.decode(response.body);
+    }
 
     return jsonResponse;
   }
@@ -50,8 +55,44 @@ class HTTPService {
 
     Map<String, dynamic> jsonResponse = <String, dynamic>{};
 
-    jsonResponse['body'] = json.decode(response.body);
     jsonResponse['status'] = response.statusCode;
+
+    if (response.body.isEmpty) {
+      jsonResponse['body'] = <String, dynamic>{};
+    } else {
+      jsonResponse['body'] = json.decode(response.body);
+    }
+
+    return jsonResponse;
+  }
+
+  Future<Map<String, dynamic>> putRequest(String url, Map<String, dynamic> data) async {
+    Conf conf = await getIt<ConfService>().getConf();
+
+    var requestUrl = Uri.parse(
+      'http://${conf.ip}:${conf.porta}/$url',
+    );
+
+    var body = json.encode(data);
+
+    var response = await http.put(
+      requestUrl,
+      headers: {
+        "Content-Type": "application/json",
+        "token": conf.token,
+      },
+      body: body,
+    );
+
+    Map<String, dynamic> jsonResponse = <String, dynamic>{};
+
+    jsonResponse['status'] = response.statusCode;
+
+    if (response.body.isEmpty) {
+      jsonResponse['body'] = <String, dynamic>{};
+    } else {
+      jsonResponse['body'] = json.decode(response.body);
+    }
 
     return jsonResponse;
   }

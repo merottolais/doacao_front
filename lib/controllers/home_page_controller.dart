@@ -11,6 +11,7 @@ logout(BuildContext context) async {
 
   if (response['status'] == 200) {
     Navigator.pushNamed(context, '/login');
+    getIt<ConfService>().limparDados();
   } else {
     var mensagem = response['body']['mensagem'] ?? 'Erro desconhecido';
   }

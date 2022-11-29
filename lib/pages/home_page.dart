@@ -17,9 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    getIt<ConfService>().isLogado().then(
+          (value) => {
+            if (!value)
+              {
+                Navigator.pushNamed(context, '/login'),
+              }
+          },
+        );
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
+          automaticallyImplyLeading: false,
           actions: [
             ElevatedButton(
               onPressed: () async {
@@ -27,6 +37,13 @@ class _HomePageState extends State<HomePage> {
                 setState(() {});
               },
               child: Text('Sair'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.pushNamed(context, '/atualizar');
+                setState(() {});
+              },
+              child: Text('Perfil'),
             ),
           ],
         ),
