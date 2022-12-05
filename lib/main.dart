@@ -1,4 +1,5 @@
 import 'package:doacao_front/pages/conf_page.dart';
+import 'package:doacao_front/pages/doacao_page.dart';
 import 'package:doacao_front/pages/home_page.dart';
 import 'package:doacao_front/pages/login_page.dart';
 import 'package:doacao_front/pages/recuperar_page.dart';
@@ -25,16 +26,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Material(child: Scaffold(body: ConfPage())),
         '/home': (context) => Material(child: Scaffold(body: HomePage())),
-        '/registrar': (context) => Material(
-                child: Scaffold(
-                    body: RegistrarPage(
-              update: false,
-            ))),
-        '/atualizar': (context) => Material(
-                child: Scaffold(
-                    body: RegistrarPage(
-              update: true,
-            ))),
+        '/registrar': (context) => Material(child: Scaffold(body: RegistrarPage(update: false))),
+        '/atualizar': (context) => Material(child: Scaffold(body: RegistrarPage(update: true))),
+        '/cadastrarDoacao': (context) => Material(child: Scaffold(body: DoacaoPage())),
         '/login': (context) => Material(child: Scaffold(body: const LoginPage())),
         '/recuperaSenha': (context) => Material(child: Scaffold(body: const RecuperarSenhaPage())),
       },

@@ -1,11 +1,11 @@
 import 'package:doacao_front/models/user_model.dart';
 import 'package:doacao_front/service_reg.dart';
 import 'package:doacao_front/services/conf_service.dart';
-import 'package:doacao_front/services/registrar_service.dart';
+import 'package:doacao_front/services/usuario_service.dart';
 import 'package:flutter/material.dart';
 
 registrar(String name, String telefone, String senha, String cpf, BuildContext context) async {
-  var response = await getIt<RegistrarService>().registrar(name, telefone, senha, cpf);
+  var response = await getIt<UsuarioService>().registrar(name, telefone, senha, cpf);
 
   if (response['status'] == 200) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -27,7 +27,7 @@ registrar(String name, String telefone, String senha, String cpf, BuildContext c
 }
 
 Future<User?> obterUsuario() async {
-  var response = await getIt<RegistrarService>().getUsuario();
+  var response = await getIt<UsuarioService>().getUsuario();
 
   if (response['status'] == 200) {
     User user = User();
@@ -44,7 +44,7 @@ Future<User?> obterUsuario() async {
 }
 
 atualizar(String name, String telefone, String? senha, String cpf, BuildContext context) async {
-  var response = await getIt<RegistrarService>().atualizar(name, telefone, senha, cpf);
+  var response = await getIt<UsuarioService>().atualizar(name, telefone, senha, cpf);
 
   if (response['status'] == 200) {
     var token = response['body']['token'];

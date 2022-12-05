@@ -2,7 +2,7 @@ import 'package:doacao_front/service_reg.dart';
 import 'package:doacao_front/services/conf_service.dart';
 import 'package:doacao_front/services/http_service.dart';
 
-class RegistrarService {
+class UsuarioService {
   Future<Map<String, dynamic>> registrar(String name, String telefone, String senha, String cpf) async {
     Map<String, dynamic> data = {
       'nome': name,
